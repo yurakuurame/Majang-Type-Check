@@ -60,9 +60,9 @@
             // 副露率判定の計算
             const exposureResult = ((exposureRate - 33.1713) / 3.7372) * 100;
             let exposureJudgment;
-            if (exposureResult >= 0.372) {
+            if (exposureResult >= 37.2) {
                 exposureJudgment = "副露型";
-            } else if (exposureResult <= -0.4113) {
+            } else if (exposureResult <= -41.13) {
                 exposureJudgment = "面前型";
             } else {
                 exposureJudgment = "バランス型";
