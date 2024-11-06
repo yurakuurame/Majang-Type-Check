@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>麻雀タイプ分析(雀魂玉の間データ推奨)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+        <header>
+    <h1>麻雀タイプ分析<br>(雀魂玉の間データ推奨)</h1>
+    </header>
+    <form id="data-form">
+        <label for="efficiency">打点効率:</label>
+        <input type="number" id="efficiency" name="efficiency" step="0.01" placeholder="例: 1500">
+        <br><br>
+        
+        <label for="gun-loss">銃点損失:</label>
+        <input type="number" id="gun-loss" name="gun-loss" step="0.01" placeholder="例: 600">
+        <br><br>
+        
+        <label for="exposure-rate">副露率 (%):</label>
+        <input type="number" id="exposure-rate" name="exposure-rate" min="0" max="100" step="1" placeholder="例: 35">
+        <br><br>
+        
+        <button type="button" onclick="calculateResult()">計算する</button>
+    </form>
+    
+    <h2>判定結果:</h2>
+    <p>攻守判定: <span id="judgment">-</span></p>
+    <p>副露率判定: <span id="exposure-judgment">-</span></p>
+    <p>あなたのタイプは「<span id="final-judgment">-</span>」です</p>
+</div>
+    <script>
+        function calculateResult() {
+            // フォームの入力値を取得
+            const efficiency = parseFloat(document.getElementById("efficiency").value);
+            const gunLoss = parseFloat(document.getElementById("gun-loss").value);
+            const exposureRate = parseFloat(document.getElementById("exposure-rate").value);
+
+            // 入力がない場合はエラー表示
+            if (isNaN(efficiency) || isNaN(gunLoss) || isNaN(exposureRate)) {
+                document.getElementById("judgment").textContent = "数値を正しく入力してください";
+                document.getElementById("exposure-judgment").textContent = "-";
+                return;
+            }
+
+            // 攻守判定の計算
+            const mainResult = (((efficiency - 1479.611) * 10 / 62.378) - ((gunLoss - 598.842) * (-10) / 58.56)) * 10;
+            let mainJudgment;
+            if (mainResult >= 7.49) {
+                mainJudgment = "攻撃型";
+            } else if (mainResult <= -7.69) {
+                mainJudgment = "守備型";
+            } else {
+                mainJudgment = "バランス型";
+            }
+
+            // 副露率判定の計算
+            const exposureResult = ((exposureRate - 33.1713) / 3.7372) * 100;
+            let exposureJudgment;
+            if (exposureResult >= 0.372) {
+                exposureJudgment = "副露型";
+            } else if (exposureResult <= -0.4113) {
+                exposureJudgment = "面前型";
+            } else {
+                exposureJudgment = "バランス型";
+            }
+
+            // 判定結果を表示
+            document.getElementById("judgment").textContent = mainJudgment;
+            document.getElementById("exposure-judgment").textContent = exposureJudgment;
+          // 最終判定結果を組み合わせて表示
+            const finalJudgment = exposureJudgment.replace("型", "") + mainJudgment;
+            document.getElementById("final-judgment").textContent = finalJudgment;
+        }
+    </script>
+</body>
+</html>
