@@ -13,15 +13,15 @@
     </header>
     <form id="data-form">
         <label for="efficiency">打点効率:</label>
-        <input type="number" id="efficiency" name="efficiency" step="0.01" placeholder="例: 1500">
+        <input type="number" id="efficiency" name="efficiency" step="1" placeholder="例: 1500">
         <br><br>
         
         <label for="gun-loss">銃点損失:</label>
-        <input type="number" id="gun-loss" name="gun-loss" step="0.01" placeholder="例: 600">
+        <input type="number" id="gun-loss" name="gun-loss" step="1" placeholder="例: 600">
         <br><br>
         
         <label for="exposure-rate">副露率 (%):</label>
-        <input type="number" id="exposure-rate" name="exposure-rate" min="0" max="100" step="1" placeholder="例: 35">
+        <input type="number" id="exposure-rate" name="exposure-rate" min="0" max="100" step="0.01" placeholder="例: 35">
         <br><br>
         
         <button type="button" onclick="calculateResult()">計算する</button>
